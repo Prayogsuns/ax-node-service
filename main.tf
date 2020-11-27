@@ -6,53 +6,44 @@ resource "helm_release" "k8s-node-service" {
   name       = "node-service"
   chart = "./node-service"
 
-  set_string {
+  set {
     name  = "enabled"
     value = var.enabled
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "replicaCount"
     value = var.replicas
+	type = "string"
   }
 
   set {
-    name  = "module.rdsDbMigrate"
-    value = var.rds-db-migrate-uids
-  }
-
-  set_string {
     name  = "image.repository"
     value = var.container-image
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "image.tag"
     value = var.svc-version
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "service.name"
     value = var.svc-name
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "service.port"
     value = var.svc-port
-  }
-
-  set {
-    name  = "healthCheckConfig"
-    value = var.health-check-config
-  }
-
-  set {
-    name  = "envVars"
-    value = var.env-vars
+	type = "string"
   }
 
   values = [
-    "${file("values.yaml")}"
+    file("ns-values.yaml")
   ]    
 }
 
@@ -76,33 +67,39 @@ resource "helm_release" "k8s-node-service-hpa" {
 
   depends_on = [null_resource.reset-pods]
   
-  set_string {
+  set {
     name  = "hpaEnabled"
     value = var.hpa-enabled
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "service.name"
     value = var.svc-name
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "metric"
     value = var.metric
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "metricUtilization"
     value = var.metric-utilization
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "maxReplicas"
     value = var.max-replicas
+	type = "string"
   }
 
-  set_string {
+  set {
     name  = "minReplicas"
     value = var.min-replicas
+	type = "string"
   }
 }
