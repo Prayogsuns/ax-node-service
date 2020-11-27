@@ -1,0 +1,20 @@
+{{- if eq .Values.hpaEnabled true }}
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Values.service.name }}-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.service.name }}
+  minReplicas: {{ .Values.minReplicas }}
+  maxReplicas: {{ .Values.maxReplicas }}
+  metrics:
+  - type: Resource
+    resource:
+      name: {{ .Values.metric }}
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.metricUtilization }}
+{{- end }}

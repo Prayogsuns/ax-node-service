@@ -1,0 +1,35 @@
+{{- if eq .Values.enabled true }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.service.name }}
+  annotations:
+    dependency: {{ range $uid := .Values.module.rdsDbMigrate }}"{{$uid}}" {{ end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      service: {{ .Values.service.name }}
+  template:
+    metadata:
+      labels:
+        service: {{ .Values.service.name }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
+      containers:
+      - name: {{ .Values.service.name }}-container
+        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion | default .Values.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        livenessProbe:
+          {{- include "node-service.livenessProbe" . | nindent 10 }}
+        readinessProbe:
+          {{- include "node-service.readinessProbe" . | nindent 10 }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.service.name }}-env-vars
+            optional: false
+{{- end }}
