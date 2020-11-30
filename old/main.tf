@@ -53,12 +53,6 @@ resource "helm_release" "k8s-node-service" {
   }
 
   set {
-    name  = "service.name"
-    value = var.svc-name
-	type = "string"
-  }
-
-  set {
     name  = "metric"
     value = var.metric
 	type = "string"
