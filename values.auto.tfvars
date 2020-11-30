@@ -2,11 +2,11 @@ enabled = "true"
 
 svc-name = "my-service"
 
-svc-port = "8080"
+svc-port = "5000"
 
 replicas = "3"
 
-container-image = "nginx"
+container-image = "poroko/flask-demo-app"
 
 svc-version = "latest"
 

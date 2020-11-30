@@ -8,7 +8,7 @@ envVars:
 healthCheckConfig:
   httpGet:
     path: /
-    port: 8080
+    port: 5000
   initialDelaySeconds: 5
   timeoutSeconds: 10
   failureThreshold: 3
