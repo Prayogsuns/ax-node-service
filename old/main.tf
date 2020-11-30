@@ -3,7 +3,7 @@ provider "helm" {
 }
 
 resource "helm_release" "k8s-node-service" {
-  name       = "node-service"
+  name       = var.svc-name
   chart = "./node-service"
 
   set {

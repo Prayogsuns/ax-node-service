@@ -3,7 +3,7 @@ provider "helm" {
 }
 
 resource "helm_release" "k8s-node-service" {
-  name       = "node-service"
+  name       = var.svc-name
   chart = "./node-service"
 
   set {
@@ -67,7 +67,7 @@ resource "null_resource" "reset-pods" {
 }
 
 resource "helm_release" "k8s-node-service-hpa" {
-  name       = "node-service-hpa"
+  name       = "${var.svc-name}-hpa"
   chart = "./node-service-hpa"
 
   depends_on = [null_resource.reset-pods]
