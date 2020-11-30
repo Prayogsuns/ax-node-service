@@ -9,6 +9,7 @@ resource "helm_release" "k8s-node-service" {
   set {
     name  = "enabled"
     value = var.enabled
+	type = "string"
   }
 
   set {
@@ -40,35 +41,11 @@ resource "helm_release" "k8s-node-service" {
     value = var.svc-port
 	type = "string"
   }
-
-  values = [
-    file("ns-values.yaml")
-  ]    
-}
-
-resource "null_resource" "reset-pods" {
-  count      = var.enabled == "true" ? 1 : 0
-  depends_on = [helm_release.k8s-node-service]
-
-  triggers = {
-    env-var-names  = join(",", keys(var.env-vars))
-    env-var-values = join(",", values(var.env-vars))
-  }
-
-  provisioner "local-exec" {
-    command = "for p in $(kubectl get po | awk '/^${var.svc-name}/ {print $1}'); do kubectl delete po $p; done"
-  }
-}
-
-resource "helm_release" "k8s-node-service-hpa" {
-  name       = "node-service-hpa"
-  chart = "./node-service-hpa"
-
-  depends_on = [null_resource.reset-pods]
   
   set {
     name  = "hpaEnabled"
     value = var.hpa-enabled
+	type = "string"
   }
 
   set {
@@ -99,5 +76,23 @@ resource "helm_release" "k8s-node-service-hpa" {
     name  = "minReplicas"
     value = var.min-replicas
 	type = "string"
+  }  
+
+  values = [
+    file("ns-values.yaml")
+  ]    
+}
+
+resource "null_resource" "reset-pods" {
+  count      = var.enabled == "true" ? 1 : 0
+  depends_on = [helm_release.k8s-node-service]
+
+  triggers = {
+    env-var-names  = join(",", keys(var.env-vars))
+    env-var-values = join(",", values(var.env-vars))
+  }
+
+  provisioner "local-exec" {
+    command = "for p in $(kubectl get po | awk '/^${var.svc-name}/ {print $1}'); do kubectl delete po $p; done"
   }
 }

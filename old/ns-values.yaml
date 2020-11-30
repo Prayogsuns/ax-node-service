@@ -1,0 +1,20 @@
+envVars:
+  SWAGGER_SCHEMES: "[\"https\"]"
+  ELASTICSEARCH_SERVICE_AWS_ARCHIVE_TYPE: "s3"
+  ELASTICSEARCH_SERVICE_PROTOCOL: "https"
+  ELASTICSEARCH_SERVICE_PORT: "443"
+  ELASTICSEARCH_SERVICE_PATH_PREFIX: "/"
+
+healthCheckConfig:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  timeoutSeconds: 10
+  failureThreshold: 1
+  periodSeconds: 30
+  successThreshold: 1
+  
+module:
+  rdsDbMigrate:
+    - "cc32b243-a94a-11ea-afd7-124a2054baaa"

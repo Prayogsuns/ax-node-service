@@ -1,0 +1,41 @@
+# Default values for node-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+enabled: true
+
+replicaCount: 1
+
+module:
+  rdsDbMigrate:
+    - "cc32b243-a94a-11ea-afd7-124a2054baaa"
+
+image:
+  repository: nginx
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets:
+  - name: dockercreds
+
+service:
+  name: "my-service"
+  port: 8080
+
+healthCheckConfig:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  timeoutSeconds: 10
+  failureThreshold: 1
+  periodSeconds: 30
+  successThreshold: 1
+
+envVars: {}
+
+hpaEnabled: true
+metric: "cpu"
+metricUtilization: 50
+maxReplicas: 10
+minReplicas: 1
