@@ -21,7 +21,7 @@ spec:
       {{- end }}
       containers:
       - name: {{ .Values.service.name }}-container
-        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion | default .Values.image.tag }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         ports:
         - containerPort: {{ .Values.service.port }}
         livenessProbe:
