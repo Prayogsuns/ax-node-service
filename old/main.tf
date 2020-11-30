@@ -9,7 +9,6 @@ resource "helm_release" "k8s-node-service" {
   set {
     name  = "enabled"
     value = var.enabled
-	type = "string"
   }
 
   set {
@@ -45,7 +44,6 @@ resource "helm_release" "k8s-node-service" {
   set {
     name  = "hpaEnabled"
     value = var.hpa-enabled
-	type = "string"
   }
 
   set {
