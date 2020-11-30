@@ -6,9 +6,7 @@ enabled: true
 
 replicaCount: 1
 
-module:
-  rdsDbMigrate:
-    - "cc32b243-a94a-11ea-afd7-124a2054baaa"
+rdsDbMigrateUids: ""
 
 image:
   repository: nginx
@@ -19,7 +17,7 @@ imagePullSecrets:
   - name: dockercreds
 
 service:
-  name: "my-service"
+  name: ""
   port: 8080
 
 healthCheckConfig:
@@ -33,15 +31,3 @@ healthCheckConfig:
   successThreshold: 1
 
 envVars: {}
-
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi

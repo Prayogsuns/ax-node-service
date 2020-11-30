@@ -41,6 +41,12 @@ resource "helm_release" "k8s-node-service" {
 	type = "string"
   }
 
+  set {
+    name  = "rdsDbMigrateUids"
+    value = var.rds-db-migrate-uid
+	type = "string"
+  }
+
   values = [
     file("ns-values.yaml")
   ]    

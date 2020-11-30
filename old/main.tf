@@ -40,6 +40,12 @@ resource "helm_release" "k8s-node-service" {
     value = var.svc-port
 	type = "string"
   }
+
+  set {
+    name  = "rdsDbMigrateUids"
+    value = var.rds-db-migrate-uid
+	type = "string"
+  }
   
   set {
     name  = "hpaEnabled"

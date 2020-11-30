@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.service.name }}
   annotations:
-    dependency: {{ range $uid := .Values.module.rdsDbMigrate }}"{{$uid}}" {{ end }}
+    dependency: {{ .Values.rdsDbMigrateUids }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:

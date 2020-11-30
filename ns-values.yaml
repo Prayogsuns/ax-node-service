@@ -7,14 +7,10 @@ envVars:
 
 healthCheckConfig:
   httpGet:
-    path: /health
+    path: /
     port: 8080
   initialDelaySeconds: 5
   timeoutSeconds: 10
-  failureThreshold: 1
+  failureThreshold: 3
   periodSeconds: 30
   successThreshold: 1
-  
-module:
-  rdsDbMigrate:
-    - "cc32b243-a94a-11ea-afd7-124a2054baaa"

@@ -6,9 +6,7 @@ enabled: true
 
 replicaCount: 1
 
-module:
-  rdsDbMigrate:
-    - "cc32b243-a94a-11ea-afd7-124a2054baaa"
+rdsDbMigrateUids: "cc32b243-a94a-11ea-afd7-124a2054baaa"
 
 image:
   repository: nginx
