@@ -17,8 +17,8 @@ variable "replicas" {
 }
 
 variable "rds-db-migrate-uids" {
-  type = list
-  default = []
+  type = string
+  default = ""
 }
 
 variable "container-image" {
