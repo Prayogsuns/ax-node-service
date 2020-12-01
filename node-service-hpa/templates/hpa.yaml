@@ -7,14 +7,14 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.service.name }}
-  minReplicas: {{ .Values.minReplicas }}
-  maxReplicas: {{ .Values.maxReplicas }}
+    name: {{ required .Values.service.name }}
+  minReplicas: {{ required .Values.minReplicas }}
+  maxReplicas: {{ required .Values.maxReplicas }}
   metrics:
   - type: Resource
     resource:
-      name: {{ .Values.metric }}
+      name: {{ required .Values.metric }}
       target:
         type: Utilization
-        averageUtilization: {{ .Values.metricUtilization }}
+        averageUtilization: {{ required .Values.metricUtilization }}
 {{- end }}
