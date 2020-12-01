@@ -6,7 +6,7 @@ Attach LivenessProbe on Pod/deployment
 livenessProbe:
   {{ toYaml .Values.healthCheckConfig }}
 {{- end -}}
-{{- end }}
+{{- end -}}
 {{/*
 Attach ReadinessProbe on Pod/deployment
 */}}
@@ -15,4 +15,4 @@ Attach ReadinessProbe on Pod/deployment
 readinessProbe:
   {{ toYaml .Values.healthCheckConfig }}
 {{- end -}}
-{{- end }}
+{{- end -}}

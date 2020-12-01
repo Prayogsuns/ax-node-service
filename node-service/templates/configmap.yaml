@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ required .Values.service.name }}-env-vars
+  name: {{ .Values.service.name }}-env-vars
 data:
   {{- toYaml .Values.envVars | nindent 2 }}
 {{- end }}

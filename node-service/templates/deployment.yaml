@@ -2,36 +2,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ required .Values.service.name }}
+  name: {{ .Values.service.name }}
   annotations:
     dependency: {{ .Values.rdsDbMigrateUids }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      service: {{ required .Values.service.name }}
+      service: {{ .Values.service.name }}
   template:
     metadata:
       labels:
-        service: {{ required .Values.service.name }}
+        service: {{ .Values.service.name }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 6 }}
       {{- end }}
       containers:
-      - name: {{ required .Values.service.name }}-container
-        image: "{{ required .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      - name: {{ .Values.service.name }}-container
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         ports:
-        - containerPort: {{ required .Values.service.port }}
-        #livenessProbe:
-        #  {{- include "node-service.livenessProbe" . | nindent 10 }}
-        #readinessProbe:
-        #  {{- include "node-service.readinessProbe" . | nindent 10 }}
+        - containerPort: {{ .Values.service.port }}
         {{- include "node-service.livenessProbe" . | nindent 8 }}
         {{- include "node-service.readinessProbe" . | nindent 8 }}
         envFrom:
         - configMapRef:
-            name: {{ required .Values.service.name }}-env-vars
+            name: {{ .Values.service.name }}-env-vars
             optional: false
 {{- end }}

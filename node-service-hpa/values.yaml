@@ -6,7 +6,7 @@
 #  name: "my-service"
 
 
-#hpaEnabled: false
+hpaEnabled: false
 
 #metric: "cpu"
 
