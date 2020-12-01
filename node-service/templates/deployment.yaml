@@ -2,34 +2,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.service.name }}
+  name: {{ required .Values.service.name }}
   annotations:
     dependency: {{ .Values.rdsDbMigrateUids }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      service: {{ .Values.service.name }}
+      service: {{ required .Values.service.name }}
   template:
     metadata:
       labels:
-        service: {{ .Values.service.name }}
+        service: {{ required .Values.service.name }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 6 }}
       {{- end }}
       containers:
-      - name: {{ .Values.service.name }}-container
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      - name: {{ required .Values.service.name }}-container
+        image: "{{ required .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         ports:
-        - containerPort: {{ .Values.service.port }}
-        livenessProbe:
-          {{- include "node-service.livenessProbe" . | nindent 10 }}
-        readinessProbe:
-          {{- include "node-service.readinessProbe" . | nindent 10 }}
+        - containerPort: {{ required .Values.service.port }}
+        #livenessProbe:
+        #  {{- include "node-service.livenessProbe" . | nindent 10 }}
+        #readinessProbe:
+        #  {{- include "node-service.readinessProbe" . | nindent 10 }}
+        {{- include "node-service.livenessProbe" . | nindent 8 }}
+        {{- include "node-service.readinessProbe" . | nindent 8 }}
         envFrom:
         - configMapRef:
-            name: {{ .Values.service.name }}-env-vars
+            name: {{ required .Values.service.name }}-env-vars
             optional: false
 {{- end }}

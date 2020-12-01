@@ -2,32 +2,33 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-enabled: true
+enabled: false
 
 replicaCount: 1
 
 rdsDbMigrateUids: ""
 
-image:
-  repository: nginx
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+#image:
+#  repository: nginx
+#  # Overrides the image tag whose default is the chart appVersion.
+#  tag: ""
 
 imagePullSecrets:
   - name: dockercreds
 
-service:
-  name: ""
-  port: 8080
+#service:
+#  name: ""
+#  port: 8080
 
-healthCheckConfig:
-  httpGet:
-    path: /health
-    port: 8080
-  initialDelaySeconds: 5
-  timeoutSeconds: 10
-  failureThreshold: 1
-  periodSeconds: 30
-  successThreshold: 1
+#healthCheckConfig:
+#  httpGet:
+#    path: /health
+#    port: 8080
+#  initialDelaySeconds: 5
+#  timeoutSeconds: 10
+#  failureThreshold: 1
+#  periodSeconds: 30
+#  successThreshold: 1
+healthCheckConfig: {}
 
 envVars: {}

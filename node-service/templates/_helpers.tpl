@@ -2,11 +2,17 @@
 Attach LivenessProbe on Pod/deployment
 */}}
 {{- define "node-service.livenessProbe" -}}
-{{ toYaml .Values.healthCheckConfig }}
+{{- if .Values.healthCheckConfig -}}
+livenessProbe:
+  {{ toYaml .Values.healthCheckConfig }}
+{{- end -}}
 {{- end }}
 {{/*
 Attach ReadinessProbe on Pod/deployment
 */}}
 {{- define "node-service.readinessProbe" -}}
-{{ toYaml .Values.healthCheckConfig }}
+{{- if .Values.healthCheckConfig -}}
+readinessProbe:
+  {{ toYaml .Values.healthCheckConfig }}
+{{- end -}}
 {{- end }}
