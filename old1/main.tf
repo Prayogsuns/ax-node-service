@@ -2,11 +2,6 @@ provider "helm" {
   version = "1.3.2"
 }
 
-locals {
-  envVars           = jsonencode(var.env-vars)
-  healthCheckConfig = jsonencode(var.health-check-config)
-}
-
 resource "helm_release" "k8s-node-service" {
   name       = var.svc-name
   chart = "./node-service"
@@ -52,40 +47,8 @@ resource "helm_release" "k8s-node-service" {
 	type = "string"
   }
 
-
-  set {
-    name  = "hpaEnabled"
-    value = var.hpa-enabled
-  }
-
-  set {
-    name  = "metric"
-    value = var.metric
-        type = "string"
-  }
-
-  set {
-    name  = "metricUtilization"
-    value = var.metric-utilization
-        type = "string"
-  }
-
-  set {
-    name  = "maxReplicas"
-    value = var.max-replicas
-        type = "string"
-  }
-
-  set {
-    name  = "minReplicas"
-    value = var.min-replicas
-        type = "string"
-  }
-
-  values = [<<EOF
-envVars: ${local.envVars}
-healthCheckConfig: ${local.healthCheckConfig}
-EOF
+  values = [
+    file("ns-values.yaml")
   ]    
 }
 
@@ -102,7 +65,7 @@ resource "null_resource" "reset-pods" {
     command = "for p in $(kubectl get po | awk '/^${var.svc-name}/ {print $1}'); do kubectl delete po $p; done"
   }
 }
-/*
+
 resource "helm_release" "k8s-node-service-hpa" {
   name       = "${var.svc-name}-hpa"
   chart = "./node-service-hpa"
@@ -112,6 +75,12 @@ resource "helm_release" "k8s-node-service-hpa" {
   set {
     name  = "hpaEnabled"
     value = var.hpa-enabled
+  }
+
+  set {
+    name  = "service.name"
+    value = var.svc-name
+	type = "string"
   }
 
   set {
@@ -138,10 +107,3 @@ resource "helm_release" "k8s-node-service-hpa" {
 	type = "string"
   }
 }
-*/
-/*
-output "helm-k8-release" {
-  value = helm_release.k8s-node-service
-}
-*/
-

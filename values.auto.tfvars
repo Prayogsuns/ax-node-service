@@ -21,3 +21,21 @@ metric-utilization = "50"
 max-replicas = "10"
 
 min-replicas = "1"
+
+env-vars = {
+  BOOKING_SERVICE_API_SWAGGER_BASE_PATH   = "/booking"
+  BOOKING_SERVICE_API_SWAGGER_SCHEMES     = "[\"https\"]"
+  LOGGING_DAILYROTATEFILE_SILENT          = "true"
+}
+
+health-check-config = {
+  initialDelaySeconds  = 1
+  periodSeconds        = 5
+  successThreshold     = 1
+  timeoutSeconds       = 5
+
+  httpGet = {
+    path = "/"
+    port = 5000
+  }
+}
