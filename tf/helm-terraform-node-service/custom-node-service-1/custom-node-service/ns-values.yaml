@@ -1,0 +1,11 @@
+envVars:
+  CUSTOM_NODE_SERVICE: "true"
+
+healthCheckConfig:
+  httpGet:
+    path: /health
+    port: 40240
+  initialDelaySeconds: 5
+  timeoutSeconds: 10
+  periodSeconds: 30
+  successThreshold: 1

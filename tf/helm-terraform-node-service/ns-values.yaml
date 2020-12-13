@@ -1,0 +1,16 @@
+envVars:
+  SWAGGER_SCHEMES: "[\"https\"]"
+  ELASTICSEARCH_SERVICE_AWS_ARCHIVE_TYPE: "s3"
+  ELASTICSEARCH_SERVICE_PROTOCOL: "https"
+  ELASTICSEARCH_SERVICE_PORT: "443"
+  ELASTICSEARCH_SERVICE_PATH_PREFIX: "/"
+
+healthCheckConfig:
+  httpGet:
+    path: /
+    port: 5000
+  initialDelaySeconds: 1
+  timeoutSeconds: 10
+  failureThreshold: 3
+  periodSeconds: 10
+  successThreshold: 1
