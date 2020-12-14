@@ -53,7 +53,7 @@ resource "helm_release" "k8s-node-service" {
 
   set {
     name  = "rdsDbMigrateUids"
-    value = var.node-svc-db-enabled ? join(" ", list(module.rds-db-migrate[0].uid)) : ""
+    value = var.node-svc-db-enabled ? join(" ", list(module.rds-db-migrate[0].uid)) : jsonencode("")
     type = "string"
   }
 

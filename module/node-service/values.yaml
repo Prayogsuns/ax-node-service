@@ -6,7 +6,7 @@ enabled: false
 
 replicaCount: 1
 
-rdsDbMigrateUids: ""
+rdsDbMigrateUids: "\"\""
 
 #image:
 #  repository: nginx

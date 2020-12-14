@@ -52,7 +52,7 @@ resource "helm_release" "k8s-node-service" {
 
   set {
     name  = "rdsDbMigrateUids"
-    value = var.rds-db-migrate-uids
+    value = jsonencode(var.rds-db-migrate-uids)
 	type = "string"
   }
 
