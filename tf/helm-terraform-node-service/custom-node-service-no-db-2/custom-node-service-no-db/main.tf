@@ -1,6 +1,8 @@
+/*
 provider "helm" {
   version = "1.3.2"
 }
+*/
 
 locals {
   envVars           = jsonencode(var.env-vars)
@@ -56,6 +58,35 @@ resource "helm_release" "k8s-node-service" {
     name  = "service.type"
     value = var.svc-type
     type = "string"
+  }
+
+  set {
+    name  = "hpaEnabled"
+    value = var.hpa-enabled
+  }
+
+  set {
+    name  = "metric"
+    value = var.metric
+        type = "string"
+  }
+
+  set {
+    name  = "metricUtilization"
+    value = var.metric-utilization
+        type = "string"
+  }
+
+  set {
+    name  = "maxReplicas"
+    value = var.max-replicas
+        type = "string"
+  }
+
+  set {
+    name  = "minReplicas"
+    value = var.min-replicas
+        type = "string"
   }
 
   values = [<<EOF

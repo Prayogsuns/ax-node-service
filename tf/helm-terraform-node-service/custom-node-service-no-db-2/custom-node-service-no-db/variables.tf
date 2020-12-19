@@ -59,3 +59,24 @@ variable "ingress-rules" {
   type = list
 }
 
+variable "hpa-enabled" {
+  type = string
+  default = "false"
+}
+
+variable "metric" {
+  type = string
+}
+
+variable "metric-utilization" {
+   type = string
+}
+
+variable "max-replicas" {
+  type = string
+}
+
+variable "min-replicas" {
+   type = string
+}
+

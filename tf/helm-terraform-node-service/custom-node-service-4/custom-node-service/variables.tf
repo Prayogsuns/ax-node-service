@@ -126,27 +126,23 @@ variable "ingress-rules" {
 
 variable "hpa-enabled" {
   type = string
-  default = ""
+  default = "false"
 }
 
 variable "metric" {
   type = string
-  default = ""
 }
 
 variable "metric-utilization" {
    type = string
-   default = ""
 }
 
 variable "max-replicas" {
   type = string
-  default = ""
 }
 
 variable "min-replicas" {
    type = string
-   default = ""
 }
 
 

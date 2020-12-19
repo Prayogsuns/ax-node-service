@@ -47,3 +47,14 @@ envVars: {}
 
 ingress:
   annotations: {}
+
+hpaEnabled: false
+
+#metric: "cpu"
+
+#metricUtilization: 50
+
+#maxReplicas: 10
+
+#minReplicas: 1
+
