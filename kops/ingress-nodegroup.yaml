@@ -1,0 +1,22 @@
+apiVersion: kops/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: aiqgold1.ddsdeploytest.com
+  name: ingress-nginx-controller-nodes
+spec:
+  image: kope.io/k8s-1.14-debian-stretch-amd64-hvm-ebs-2020-07-20
+  machineType: t3.micro
+  maxSize: 3
+  minSize: 3
+  nodeLabels:
+    kops.k8s.io/instancegroup: nodes
+    ingress-nginx: "yes"
+  role: Node
+  rootVolumeSize: 8
+  subnets:
+  - us-east-1a
+  - us-east-1b
+  - us-east-1c
+  taints:
+  - ingress-nginx=yes:NoSchedule
