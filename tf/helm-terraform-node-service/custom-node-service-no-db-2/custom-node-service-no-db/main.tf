@@ -1,9 +1,3 @@
-/*
-provider "helm" {
-  version = "1.3.2"
-}
-*/
-
 locals {
   envVars           = jsonencode(var.env-vars)
   healthCheckConfig = jsonencode(var.health-check-config)
