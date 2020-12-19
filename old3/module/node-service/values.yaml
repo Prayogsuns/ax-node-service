@@ -36,20 +36,6 @@ healthCheckConfig: {}
 
 envVars: {}
 
-#ingress:
-#  annotations: {}
-#  rules:
-#  - host: service.example.com
-#    http:
-#      paths:
-#      - backend:
-#          serviceName: service
-#          servicePort: 8080
-#        path: /serviceAPI
-
-ingress:
-  annotations: {}
-
 hpaEnabled: false
 
 #metric: "cpu"

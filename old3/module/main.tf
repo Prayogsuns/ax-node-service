@@ -1,8 +1,6 @@
 locals {
   envVars           = jsonencode(var.env-vars)
   healthCheckConfig = jsonencode(var.health-check-config)
-  ingressAnnotations = jsonencode(var.ingress-annotations)
-  ingressRules = jsonencode(var.ingress-rules)
 }
 
 resource "helm_release" "k8s-node-service" {
@@ -10,7 +8,6 @@ resource "helm_release" "k8s-node-service" {
   chart = "${path.module}/node-service"
   namespace = var.namespace
   create_namespace = true
-  max_history = var.max-history
 
   set {
     name  = "enabled"
@@ -92,9 +89,6 @@ resource "helm_release" "k8s-node-service" {
   values = [<<EOF
 envVars: ${local.envVars}
 healthCheckConfig: ${local.healthCheckConfig}
-ingress:
-  annotations: ${local.ingressAnnotations} 
-  rules: ${local.ingressRules}
 EOF
   ]    
 }

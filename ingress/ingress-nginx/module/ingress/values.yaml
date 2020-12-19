@@ -1,0 +1,27 @@
+controller:
+  tolerations:
+  - key: "ingress-nginx"
+    operator: "Equal"
+    value: "yes"
+    effect: "NoSchedule"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "ingress-nginx"
+            operator: In
+            values:
+            - "yes"
+  replicaCount: 3
+  service:
+    enableHttps: false
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+      service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: '60'
+      service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
+      service.beta.kubernetes.io/aws-load-balancer-type: elb
+  config:
+    allow-backend-server-header: "true"
+    use-forwarded-headers: "true"
+

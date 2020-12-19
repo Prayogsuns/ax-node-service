@@ -8,11 +8,6 @@ variable "namespace" {
   default = "default"
 }
 
-variable "max-history" {
-  type    = string
-  default = "3"
-}
-
 variable "svc-name" {
   type = string
 }
@@ -54,16 +49,6 @@ variable "health-check-config" {
 variable "env-vars" {
   type = map
   default = {}
-}
-
-variable "ingress-annotations" {
-  type = map
-  default = {}
-}
-
-variable "ingress-rules" {
-  type = list
-  default = []
 }
 
 variable "hpa-enabled" {
